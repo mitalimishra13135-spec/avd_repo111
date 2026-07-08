@@ -1,9 +1,4 @@
-import requests 
-import pandas as pd
+import os
 
-response = requests.get("https://jsonplaceholder.typicode.com/users")
-data = response.json()
-
-df = pd.DataFrame(data)
-df = df[["id", "name", "email"]]
-print(df)
+db_password = os.getenv("DB_PASSWORD1")
+print('Password: ', db_passsword)
