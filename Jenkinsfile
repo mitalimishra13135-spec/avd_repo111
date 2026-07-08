@@ -15,8 +15,11 @@ pipeline{
                 bat "${env.PYTHON} -m pip install -r requirements.txt"
             }
         }
+
         stage('run extract_data.py'){
-            bat "${env.PYTHON} extract_data.py"
+            steps{
+                 bat "${env.PYTHON} extract_data.py"
+            }
         }
     }
 }
