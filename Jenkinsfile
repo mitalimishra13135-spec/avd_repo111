@@ -1,20 +1,22 @@
-node{
-    def PYTHON = 'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
-    try{
-        stage('checkout code'){
-            checkout scm
-        }
-
-        stage('show python version'){
-            bat "${PYTHON} --version"
-        }
-
-        stage('run python program'){
-            bat "${PYTHON} extract_data.py" 
-        }
+pipeline{
+    agent any
+    environment{
+        PYTHON = 'C:\\Users\\USER\\AppData\\Local\\Programs\\Python\\Python312\\python.exe'
     }
-    catch(err){
-        echo 'pipeline failed: ${err}'
+    stages{
+        stage('checkout code'){
+            steps{
+                checkout scm      
+            } 
+        }
 
+        stage('install dependencies'){
+            steps{
+                bat "${env.PYTHON} -m pip install -r requirements.txt"
+            }
+        }
+        stage('run extract_data.py'){
+            bat "${env.PYTHON} extract_data.py"
+        }
     }
 }
